@@ -6,6 +6,8 @@ namespace Domain.Models;
 public class User
 {
 	#region Fields
+	private const int NAME_MAX_LENGTH = 50;
+
 	private string _name = null!;
 	private Email _email = null!;
 	private PasswordHash _password = null!;
@@ -19,7 +21,7 @@ public class User
 		private set
 		{
 			if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(Name));
-			if (value.Length > 50) throw new ArgumentOutOfRangeException(nameof(Name));
+			if (value.Length > NAME_MAX_LENGTH) throw new ArgumentOutOfRangeException(nameof(Name));
 			_name = value;
 		}
 	}
