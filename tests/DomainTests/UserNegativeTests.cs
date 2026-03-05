@@ -19,6 +19,13 @@ public class UserNegativeTests
 	}
 
 	[Fact]
+	public void User_Creation_ShouldThrow_WhenNameIsTooLong()
+	{
+		string longName = "name" + new string('a', 50);
+		Assert.Throws<ArgumentOutOfRangeException>(() => new User(longName, emailTest, passwordTest, UserRole.Employee));
+	}
+
+	[Fact]
 	public void ChangeName_ShouldThrow_WhenNameIsNullOrWhitespace()
 	{
 		var user = new User("John", emailTest, passwordTest, UserRole.Employee);
@@ -26,6 +33,15 @@ public class UserNegativeTests
 		Assert.Throws<ArgumentNullException>(() => user.ChangeName(null!));
 		Assert.Throws<ArgumentNullException>(() => user.ChangeName(""));
 		Assert.Throws<ArgumentNullException>(() => user.ChangeName("   "));
+	}
+
+	[Fact]
+	public void ChangeName_ShouldThrow_WhenNameIsTooLong()
+	{
+		var user = new User("John", emailTest, passwordTest, UserRole.Employee);
+		string longName = "name" + new string('a', 50);
+
+		Assert.Throws<ArgumentOutOfRangeException>(() => user.ChangeName(longName));
 	}
 
 	[Fact]

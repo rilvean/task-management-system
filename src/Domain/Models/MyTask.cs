@@ -56,6 +56,8 @@ public class MyTask
 	{
 		if (user is null) throw new ArgumentNullException(nameof(user));
 
+		if (user.Role is not UserRole.Employee) throw new ArgumentException(nameof(user.Role));
+
 		if (_users.Any(u => u.Id == user.Id))
 			throw new RepeatException(nameof(user));
 
@@ -66,6 +68,8 @@ public class MyTask
 	public void RemoveExecuter(User user)
 	{
 		if (user is null) throw new ArgumentNullException(nameof(user));
+
+		if (user.Role is not UserRole.Employee) throw new ArgumentException(nameof(user.Role));
 
 		var executer = _users.SingleOrDefault(u => u.Id == user.Id) ??
 			throw new NotFoundException(nameof(user));

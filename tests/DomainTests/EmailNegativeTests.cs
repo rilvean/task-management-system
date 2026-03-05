@@ -25,7 +25,7 @@ public class EmailNegativeTests
 	[Fact]
 	public void Email_From_ShouldThrow_WhenTooLong()
 	{
-		string longEmail = "toolong" + new string('a', 100) + "@example.com";
+		string longEmail = "toolong" + new string('a', 50) + "@example.com";
 		Assert.Throws<EmailException>(() => Email.From(longEmail));
 	}
 }

@@ -5,7 +5,7 @@ namespace Domain.ValueObjects;
 
 public sealed record Email
 {
-	private const int MAX_LENGHT = 100;
+	private const int MAX_LENGHT = 50;
 
 	private static readonly Regex EmailRegex = new(
 		@"^(?!.*(\.\.|__|\+\+|--))[A-Za-z0-9][A-Za-z0-9._+-]+[A-Za-z0-9]@[a-z][a-z0-9.-]+[a-z0-9]\.[a-z]{2,}$",

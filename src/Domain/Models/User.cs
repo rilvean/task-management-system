@@ -7,6 +7,8 @@ public class User
 {
 	#region Fields
 	private string _name = null!;
+	private Email _email = null!;
+	private PasswordHash _password = null!;
 
 	private readonly List<MyTask> _tasks = [];
 
@@ -17,11 +19,28 @@ public class User
 		private set
 		{
 			if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(Name));
+			if (value.Length > 50) throw new ArgumentOutOfRangeException(nameof(Name));
 			_name = value;
 		}
 	}
-	public Email Email { get; private set; } = null!;
-	public PasswordHash PasswordHash { get; private set; } = null!;
+	public Email Email
+	{
+		get => _email;
+		private set
+		{
+			if (value is null) throw new ArgumentNullException(nameof(Email));
+			_email = value;
+		}
+	}
+	public PasswordHash PasswordHash
+	{
+		get => _password;
+		private set
+		{
+			if (value is null) throw new ArgumentNullException(nameof(PasswordHash));
+			_password = value;
+		}
+	}
 	public UserRole Role { get; private set; }
 
 	public IReadOnlyList<MyTask> Tasks => _tasks;
