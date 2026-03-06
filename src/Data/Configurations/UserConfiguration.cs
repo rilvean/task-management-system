@@ -24,7 +24,7 @@ class UserConfiguration : IEntityTypeConfiguration<User>
 			.HasField("_email")
 			.UsePropertyAccessMode(PropertyAccessMode.Property)
 			.HasConversion(
-				v => v.Value,
+				e => e.Value,
 				v => Email.From(v)
 			)
 			.IsRequired()
@@ -34,7 +34,7 @@ class UserConfiguration : IEntityTypeConfiguration<User>
 			.HasField("_password")
 			.UsePropertyAccessMode(PropertyAccessMode.Property)
 			.HasConversion(
-				v => v.Value,
+				p => p.Value,
 				v => PasswordHash.From(v)
 			)
 			.IsRequired()
