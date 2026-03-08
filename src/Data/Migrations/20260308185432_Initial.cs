@@ -78,7 +78,8 @@ namespace Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_Name",
                 table: "Tasks",
-                column: "Name");
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_Priority",

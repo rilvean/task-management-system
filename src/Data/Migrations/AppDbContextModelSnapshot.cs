@@ -60,7 +60,8 @@ namespace Data.Migrations
 
                     b.HasIndex("Deadline");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("Priority");
 

@@ -37,7 +37,7 @@ public class UserRepository(AppDbContext dbContext)
 	}
 
 	public async Task<User?> GetByEmailAsync(Email email)
-		=> await dbContext.Users.AsNoTracking().SingleOrDefaultAsync(u => u.Email == email);
+		=> await dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
 
 	public async Task<User?> GetByIdAsync(Guid Id)
 	=> await dbContext.Users.SingleOrDefaultAsync(u => u.Id == Id);

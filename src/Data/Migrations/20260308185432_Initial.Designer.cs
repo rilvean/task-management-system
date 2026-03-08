@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260308134622_Initial")]
+    [Migration("20260308185432_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -63,7 +63,8 @@ namespace Data.Migrations
 
                     b.HasIndex("Deadline");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("Priority");
 

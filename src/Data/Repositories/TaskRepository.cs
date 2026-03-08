@@ -43,7 +43,7 @@ public class TaskRepository(AppDbContext dbContext)
 		=> await dbContext.Tasks.SingleOrDefaultAsync(t => t.Id == Id);
 
 	public async Task<MyTask?> GetByNameAsync(string name)
-		=> await dbContext.Tasks.AsNoTracking().SingleOrDefaultAsync(t => t.Name == name);
+		=> await dbContext.Tasks.SingleOrDefaultAsync(t => t.Name == name);
 
 	public async Task<IReadOnlyList<MyTask>> GetByPriorityAsync(MyTaskPriority priority)
 		=> await dbContext.Tasks.AsNoTracking()

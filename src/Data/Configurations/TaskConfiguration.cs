@@ -10,7 +10,8 @@ class TaskConfiguration : IEntityTypeConfiguration<MyTask>
 	{
 		builder.HasKey(t => t.Id);
 
-		builder.HasIndex(t => t.Name);
+		builder.HasIndex(t => t.Name)
+			.IsUnique();
 		builder.Property(t => t.Name)
 			.HasField("_name")
 			.UsePropertyAccessMode(PropertyAccessMode.Property)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options)
-	: DbContext(options), IUnitOfWork
+	: DbContext(options)
 {
 	public DbSet<MyTask> Tasks => Set<MyTask>();
 	public DbSet<User> Users => Set<User>();
