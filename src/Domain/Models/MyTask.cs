@@ -30,7 +30,7 @@ public class MyTask
 	public IReadOnlyList<User> Users => _users;
 	#endregion
 
-	protected MyTask() { }
+	private MyTask() { }
 
 	public MyTask(string name, string? description)
 	{

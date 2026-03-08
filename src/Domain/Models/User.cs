@@ -48,7 +48,7 @@ public class User
 	public IReadOnlyList<MyTask> Tasks => _tasks;
 	#endregion
 
-	protected User() { }
+	private User() { }
 
 	public User(string name, Email email, PasswordHash passwordHash, UserRole role)
 	{

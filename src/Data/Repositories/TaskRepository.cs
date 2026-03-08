@@ -40,7 +40,7 @@ public class TaskRepository(AppDbContext dbContext)
 	}
 
 	public async Task<MyTask?> GetByIdAsync(Guid Id)
-		=> await dbContext.Tasks.AsNoTracking().SingleOrDefaultAsync(t => t.Id == Id);
+		=> await dbContext.Tasks.SingleOrDefaultAsync(t => t.Id == Id);
 
 	public async Task<MyTask?> GetByNameAsync(string name)
 		=> await dbContext.Tasks.AsNoTracking().SingleOrDefaultAsync(t => t.Name == name);
