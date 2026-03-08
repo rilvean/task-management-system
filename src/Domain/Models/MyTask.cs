@@ -1,9 +1,10 @@
 ﻿using Domain.Enums;
 using Domain.Exceptions;
+using Domain.Interfaces;
 
 namespace Domain.Models;
 
-public class MyTask
+public class MyTask : IAuditable
 {
 	#region Fields
 	private string _name = null!;

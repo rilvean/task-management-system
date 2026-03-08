@@ -1,9 +1,10 @@
 ﻿using Domain.Enums;
+using Domain.Interfaces;
 using Domain.ValueObjects;
 
 namespace Domain.Models;
 
-public class User
+public class User : IAuditable
 {
 	#region Fields
 	private const int NAME_MAX_LENGTH = 50;

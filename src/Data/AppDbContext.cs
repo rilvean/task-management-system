@@ -27,7 +27,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
 	private void UpdateShadowProperties()
 	{
-		var entries = ChangeTracker.Entries()
+		var entries = ChangeTracker.Entries<IAuditable>()
 			.Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
 
 		foreach (var entry in entries)

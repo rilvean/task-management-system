@@ -13,7 +13,9 @@ public class TaskRepository(AppDbContext dbContext)
 
 	public async Task<IReadOnlyList<MyTask>> GetAllAsync(MyTaskSortBy sortBy = MyTaskSortBy.Deadline, bool desc = false)
 	{
-		IQueryable<MyTask> query = dbContext.Tasks.AsNoTracking();
+		IQueryable<MyTask> query = dbContext.Tasks
+			.AsNoTracking()
+			.Include(t => t.Users);
 
 		query = sortBy switch
 		{
@@ -40,24 +42,26 @@ public class TaskRepository(AppDbContext dbContext)
 	}
 
 	public async Task<MyTask?> GetByIdAsync(Guid Id)
-		=> await dbContext.Tasks.SingleOrDefaultAsync(t => t.Id == Id);
+		=> await dbContext.Tasks
+		.Include(t => t.Users)
+		.SingleOrDefaultAsync(t => t.Id == Id);
 
 	public async Task<MyTask?> GetByNameAsync(string name)
-		=> await dbContext.Tasks.SingleOrDefaultAsync(t => t.Name == name);
+		=> await dbContext.Tasks
+		.Include(t => t.Users)
+		.SingleOrDefaultAsync(t => t.Name == name);
 
 	public async Task<IReadOnlyList<MyTask>> GetByPriorityAsync(MyTaskPriority priority)
 		=> await dbContext.Tasks.AsNoTracking()
+		.Include(t => t.Users)
 		.Where(t => t.Priority == priority)
 		.ToListAsync();
 
 	public async Task<IReadOnlyList<MyTask>> GetByStatusAsync(MyTaskStatus status)
-		=> await dbContext.Tasks.AsNoTracking()
+		=> await dbContext.Tasks
+		.AsNoTracking()
+		.Include(t => t.Users)
 		.Where(t => t.Status == status)
-		.ToListAsync();
-
-	public async Task<IReadOnlyList<MyTask>> GetByUserAsync(Guid userId)
-		=> await dbContext.Tasks.AsNoTracking()
-		.Where(t => t.Users.Any(u => u.Id == userId))
 		.ToListAsync();
 
 	public void Remove(MyTask task)

@@ -9,7 +9,6 @@ public interface ITaskRepository
 	Task<MyTask?> GetByNameAsync(string name);
 	Task<IReadOnlyList<MyTask>> GetByPriorityAsync(MyTaskPriority priority);
 	Task<IReadOnlyList<MyTask>> GetByStatusAsync(MyTaskStatus status);
-	Task<IReadOnlyList<MyTask>> GetByUserAsync(Guid userId);
 	Task<IReadOnlyList<MyTask>> GetAllAsync(
 		MyTaskSortBy sortBy = MyTaskSortBy.Deadline,
 		bool desc = false);

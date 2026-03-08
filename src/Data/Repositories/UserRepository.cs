@@ -14,7 +14,9 @@ public class UserRepository(AppDbContext dbContext)
 
 	public async Task<IReadOnlyList<User>> GetAllAsync(UserSortBy sortBy = UserSortBy.Email, bool desc = false)
 	{
-		IQueryable<User> query = dbContext.Users.AsNoTracking();
+		IQueryable<User> query = dbContext.Users
+			.AsNoTracking()
+			.Include(u => u.Tasks);
 
 		query = sortBy switch
 		{
@@ -37,15 +39,14 @@ public class UserRepository(AppDbContext dbContext)
 	}
 
 	public async Task<User?> GetByEmailAsync(Email email)
-		=> await dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
+		=> await dbContext.Users
+		.Include(u => u.Tasks)
+		.SingleOrDefaultAsync(u => u.Email == email);
 
 	public async Task<User?> GetByIdAsync(Guid Id)
-	=> await dbContext.Users.SingleOrDefaultAsync(u => u.Id == Id);
-
-	public async Task<IReadOnlyList<User>> GetByTaskAsync(Guid taskId)
-		=> await dbContext.Users.AsNoTracking()
-		.Where(u => u.Tasks.Any(t => t.Id == taskId))
-		.ToListAsync();
+	=> await dbContext.Users
+		.Include(u => u.Tasks)
+		.SingleOrDefaultAsync(u => u.Id == Id);
 
 	public void Remove(User user)
 		=> dbContext.Users.Remove(user);
