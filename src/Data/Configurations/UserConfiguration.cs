@@ -38,7 +38,7 @@ class UserConfiguration : IEntityTypeConfiguration<User>
 				v => PasswordHash.From(v)
 			)
 			.IsRequired()
-			.HasMaxLength(300);
+			.HasMaxLength(100);
 
 		builder.HasIndex(u => u.Role);
 		builder.Property(u => u.Role)
@@ -50,9 +50,13 @@ class UserConfiguration : IEntityTypeConfiguration<User>
 			.HasField("_tasks")
 			.UsePropertyAccessMode(PropertyAccessMode.Field);
 
-		builder.Property<DateTime>("CreatedAt")
-			.IsRequired();
-		builder.Property<DateTime>("UpdatedAt")
-			.IsRequired();
+		builder.Property<DateTimeOffset>("CreatedAt")
+			.IsRequired()
+			.HasColumnType("datetimeoffset")
+			.HasPrecision(0);
+		builder.Property<DateTimeOffset>("UpdatedAt")
+			.IsRequired()
+			.HasColumnType("datetimeoffset")
+			.HasPrecision(0);
 	}
 }

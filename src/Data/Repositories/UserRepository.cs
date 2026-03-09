@@ -40,13 +40,13 @@ public class UserRepository(AppDbContext dbContext)
 
 	public async Task<User?> GetByEmailAsync(Email email)
 		=> await dbContext.Users
-		.Include(u => u.Tasks)
-		.SingleOrDefaultAsync(u => u.Email == email);
+			.Include(u => u.Tasks)
+			.SingleOrDefaultAsync(u => u.Email == email);
 
 	public async Task<User?> GetByIdAsync(Guid Id)
-	=> await dbContext.Users
-		.Include(u => u.Tasks)
-		.SingleOrDefaultAsync(u => u.Id == Id);
+		=> await dbContext.Users
+			.Include(u => u.Tasks)
+			.SingleOrDefaultAsync(u => u.Id == Id);
 
 	public void Remove(User user)
 		=> dbContext.Users.Remove(user);

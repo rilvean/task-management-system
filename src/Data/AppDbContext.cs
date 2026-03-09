@@ -32,7 +32,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
 		foreach (var entry in entries)
 		{
-			var now = DateTime.UtcNow;
+			var now = DateTimeOffset.UtcNow;
 
 			if (entry.State == EntityState.Added)
 				entry.Property("CreatedAt").CurrentValue = now;

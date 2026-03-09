@@ -13,12 +13,12 @@ public class AppDbContextTests
 
 		context.Tasks.Add(task);
 
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		var entry = context.Entry(task);
 
-		var created = entry.Property<DateTime>("CreatedAt").CurrentValue;
-		var updated = entry.Property<DateTime>("UpdatedAt").CurrentValue;
+		var created = entry.Property<DateTimeOffset>("CreatedAt").CurrentValue;
+		var updated = entry.Property<DateTimeOffset>("UpdatedAt").CurrentValue;
 
 		Assert.NotEqual(default, created);
 		Assert.NotEqual(default, updated);

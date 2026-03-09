@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace Data;
 
@@ -9,7 +10,12 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 	{
 		var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-		optionsBuilder.UseSqlServer("Server=localhost;Database=TaskManagement;Integrated Security=True;TrustServerCertificate=True");
+		IConfiguration configuration = new ConfigurationBuilder()
+			.SetBasePath(Directory.GetCurrentDirectory())
+			.AddJsonFile("appsettings.json")
+			.Build();
+
+		optionsBuilder.UseSqlServer(configuration.GetConnectionString("Default"));
 
 		return new AppDbContext(optionsBuilder.Options);
 	}

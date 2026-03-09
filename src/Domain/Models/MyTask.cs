@@ -23,7 +23,7 @@ public class MyTask : IAuditable
 	}
 	public string? Description { get; private set; }
 
-	public DateTime? Deadline { get; private set; }
+	public DateTimeOffset? Deadline { get; private set; }
 
 	public MyTaskPriority Priority { get; private set; } = MyTaskPriority.Medium;
 	public MyTaskStatus Status { get; private set; } = MyTaskStatus.Active;
@@ -41,9 +41,9 @@ public class MyTask : IAuditable
 
 	public void Rename(string newName) => Name = newName;
 	public void ChangeDescription(string? newDescription) => Description = newDescription;
-	public void SetDeadline(DateTime? deadline)
+	public void SetDeadline(DateTimeOffset? deadline)
 	{
-		if (deadline.HasValue && deadline <= DateTime.UtcNow)
+		if (deadline.HasValue && deadline <= DateTimeOffset.UtcNow)
 			throw new ArgumentException(nameof(deadline));
 
 		Deadline = deadline;

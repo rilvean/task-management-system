@@ -43,27 +43,27 @@ public class TaskRepository(AppDbContext dbContext)
 
 	public async Task<MyTask?> GetByIdAsync(Guid Id)
 		=> await dbContext.Tasks
-		.Include(t => t.Users)
-		.SingleOrDefaultAsync(t => t.Id == Id);
+			.Include(t => t.Users)
+			.SingleOrDefaultAsync(t => t.Id == Id);
 
 	public async Task<MyTask?> GetByNameAsync(string name)
 		=> await dbContext.Tasks
-		.Include(t => t.Users)
-		.SingleOrDefaultAsync(t => t.Name == name);
+			.Include(t => t.Users)
+			.SingleOrDefaultAsync(t => t.Name == name);
 
 	public async Task<IReadOnlyList<MyTask>> GetByPriorityAsync(MyTaskPriority priority)
 		=> await dbContext.Tasks
-		.AsNoTracking()
-		.Include(t => t.Users)
-		.Where(t => t.Priority == priority)
-		.ToListAsync();
+			.AsNoTracking()
+			.Include(t => t.Users)
+			.Where(t => t.Priority == priority)
+			.ToListAsync();
 
 	public async Task<IReadOnlyList<MyTask>> GetByStatusAsync(MyTaskStatus status)
 		=> await dbContext.Tasks
-		.AsNoTracking()
-		.Include(t => t.Users)
-		.Where(t => t.Status == status)
-		.ToListAsync();
+			.AsNoTracking()
+			.Include(t => t.Users)
+			.Where(t => t.Status == status)
+			.ToListAsync();
 
 	public void Remove(MyTask task)
 		=> dbContext.Tasks.Remove(task);

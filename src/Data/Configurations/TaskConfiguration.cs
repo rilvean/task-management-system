@@ -16,14 +16,15 @@ class TaskConfiguration : IEntityTypeConfiguration<MyTask>
 			.HasField("_name")
 			.UsePropertyAccessMode(PropertyAccessMode.Property)
 			.IsRequired()
-			.HasMaxLength(999);
+			.HasMaxLength(400);
 
 		builder.Property(t => t.Description)
-			.HasMaxLength(999);
+			.HasMaxLength(2000);
 
 		builder.HasIndex(t => t.Deadline);
 		builder.Property(t => t.Deadline)
-			.HasColumnType("datetime2");
+			.HasColumnType("datetimeoffset")
+			.HasPrecision(0);
 
 		builder.HasIndex(t => t.Priority);
 		builder.Property(t => t.Priority)
@@ -45,9 +46,13 @@ class TaskConfiguration : IEntityTypeConfiguration<MyTask>
 			.WithMany(u => u.Tasks)
 			.UsingEntity(j => j.ToTable("TaskUsers"));
 
-		builder.Property<DateTime>("CreatedAt")
-			.IsRequired();
-		builder.Property<DateTime>("UpdatedAt")
-			.IsRequired();
+		builder.Property<DateTimeOffset>("CreatedAt")
+			.IsRequired()
+			.HasColumnType("datetimeoffset")
+			.HasPrecision(0);
+		builder.Property<DateTimeOffset>("UpdatedAt")
+			.IsRequired()
+			.HasColumnType("datetimeoffset")
+			.HasPrecision(0);
 	}
 }
