@@ -52,7 +52,8 @@ public class TaskRepository(AppDbContext dbContext)
 		.SingleOrDefaultAsync(t => t.Name == name);
 
 	public async Task<IReadOnlyList<MyTask>> GetByPriorityAsync(MyTaskPriority priority)
-		=> await dbContext.Tasks.AsNoTracking()
+		=> await dbContext.Tasks
+		.AsNoTracking()
 		.Include(t => t.Users)
 		.Where(t => t.Priority == priority)
 		.ToListAsync();
