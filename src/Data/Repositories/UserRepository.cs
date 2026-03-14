@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
 using Domain.Interfaces;
 using Domain.Models;
+using Domain.Models.Submodels;
 using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +15,9 @@ public class UserRepository(AppDbContext dbContext)
 
 	public async Task<IReadOnlyList<User>> GetAllAsync(UserSortBy sortBy = UserSortBy.Email, bool desc = false)
 	{
-		IQueryable<User> query = dbContext.Users
-			.AsNoTracking()
-			.Include(u => u.Tasks);
+		IQueryable<User> query = dbContext.Users.AsNoTracking()
+			.Include(u => EF.Property<IEnumerable<Assignment>>(u, "_assignments"))
+				.ThenInclude(a => a.Task);
 
 		query = sortBy switch
 		{
@@ -40,12 +41,14 @@ public class UserRepository(AppDbContext dbContext)
 
 	public async Task<User?> GetByEmailAsync(Email email)
 		=> await dbContext.Users
-			.Include(u => u.Tasks)
+			.Include(u => EF.Property<IEnumerable<Assignment>>(u, "_assignments"))
+				.ThenInclude(a => a.Task)
 			.SingleOrDefaultAsync(u => u.Email == email);
 
 	public async Task<User?> GetByIdAsync(Guid Id)
 		=> await dbContext.Users
-			.Include(u => u.Tasks)
+			.Include(u => EF.Property<IEnumerable<Assignment>>(u, "_assignments"))
+				.ThenInclude(a => a.Task)
 			.SingleOrDefaultAsync(u => u.Id == Id);
 
 	public void Remove(User user)

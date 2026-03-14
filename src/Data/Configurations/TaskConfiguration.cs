@@ -1,17 +1,17 @@
 ﻿using Domain.Models;
+using Domain.Models.Submodels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Configurations;
 
-class TaskConfiguration : IEntityTypeConfiguration<MyTask>
+class TaskConfiguration : IEntityTypeConfiguration<WorkTask>
 {
-	public void Configure(EntityTypeBuilder<MyTask> builder)
+	public void Configure(EntityTypeBuilder<WorkTask> builder)
 	{
 		builder.HasKey(t => t.Id);
 
-		builder.HasIndex(t => t.Name)
-			.IsUnique();
+		builder.HasIndex(t => t.Name).IsUnique();
 		builder.Property(t => t.Name)
 			.HasField("_name")
 			.UsePropertyAccessMode(PropertyAccessMode.Property)
@@ -38,18 +38,20 @@ class TaskConfiguration : IEntityTypeConfiguration<MyTask>
 			.IsRequired()
 			.HasMaxLength(20);
 
-		builder.Navigation(t => t.Users)
-			.HasField("_users")
+		builder.HasMany<Assignment>("_assignments")
+			.WithOne(a => a.Task)
+			.HasForeignKey(a => a.TaskId);
+
+		builder.Navigation("_assignments")
 			.UsePropertyAccessMode(PropertyAccessMode.Field);
 
-		builder.HasMany(t => t.Users)
-			.WithMany(u => u.Tasks)
-			.UsingEntity(j => j.ToTable("TaskUsers"));
+		builder.Ignore(t => t.Users);
 
 		builder.Property<DateTimeOffset>("CreatedAt")
 			.IsRequired()
 			.HasColumnType("datetimeoffset")
 			.HasPrecision(0);
+
 		builder.Property<DateTimeOffset>("UpdatedAt")
 			.IsRequired()
 			.HasColumnType("datetimeoffset")

@@ -4,7 +4,7 @@ namespace Domain.ValueObjects;
 
 public sealed record PasswordHash
 {
-	private const int MIN_LENGTH = 20;
+	private const int LENGTH = 69;
 
 	public string Value { get; }
 
@@ -13,12 +13,12 @@ public sealed record PasswordHash
 	public static PasswordHash From(string value)
 	{
 		if (string.IsNullOrWhiteSpace(value))
-			throw new PasswordHashException($"'{nameof(value)}' cannot be null.");
-
-		if (value.Length < MIN_LENGTH)
-			throw new PasswordHashException($"'{nameof(value)}' too small.");
+			throw new PasswordHashException($"'{nameof(value)}' is empty.");
 
 		value = value.Trim();
+
+		if (value.Length != LENGTH)
+			throw new PasswordHashException($"Invalid {nameof(value)}.");
 
 		return new PasswordHash(value);
 	}

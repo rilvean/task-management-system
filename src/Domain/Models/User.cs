@@ -1,8 +1,11 @@
 ﻿using Domain.Enums;
+using Domain.Exceptions;
 using Domain.Interfaces;
+using Domain.Models.Submodels;
 using Domain.ValueObjects;
 
 namespace Domain.Models;
+
 
 public class User : IAuditable
 {
@@ -13,7 +16,7 @@ public class User : IAuditable
 	private Email _email = null!;
 	private PasswordHash _password = null!;
 
-	private readonly List<MyTask> _tasks = [];
+	private readonly List<Assignment> _assignments = [];
 
 	public Guid Id { get; private set; } = Guid.NewGuid();
 	public string Name
@@ -46,7 +49,7 @@ public class User : IAuditable
 	}
 	public UserRole Role { get; private set; }
 
-	public IReadOnlyList<MyTask> Tasks => _tasks;
+	public IEnumerable<WorkTask> Tasks => _assignments.Select(x => x.Task);
 	#endregion
 
 	private User() { }
@@ -65,21 +68,21 @@ public class User : IAuditable
 	public void ChangeRole(UserRole newRole) => Role = newRole;
 
 	#region Internal methods
-	internal void AddTask(MyTask task)
+	internal void AddAssignment(Assignment assignment)
 	{
-		if (task is null) throw new ArgumentNullException(nameof(task));
+		if (assignment is null) throw new ArgumentNullException(nameof(assignment));
 
-		if (!_tasks.Any(t => t.Id == task.Id))
-			_tasks.Add(task);
+		if (!_assignments.Contains(assignment))
+			_assignments.Add(assignment);
 	}
 
-	internal void RemoveTask(MyTask task)
+	internal void RemoveAssignment(Assignment assignment)
 	{
-		if (task is null) throw new ArgumentNullException(nameof(task));
+		if (assignment is null) throw new ArgumentNullException(nameof(assignment));
 
-		var existing = _tasks.SingleOrDefault(t => t.Id == task.Id);
-		if (existing is not null)
-			_tasks.Remove(existing);
+		if (!_assignments.Remove(assignment))
+			throw new NotFoundException(nameof(assignment));
+			
 	}
 	#endregion
 }

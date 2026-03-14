@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.Submodels;
 using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -18,8 +19,7 @@ class UserConfiguration : IEntityTypeConfiguration<User>
 			.IsRequired()
 			.HasMaxLength(50);
 
-		builder.HasIndex(u => u.Email)
-			.IsUnique();
+		builder.HasIndex(u => u.Email).IsUnique();
 		builder.Property(u => u.Email)
 			.HasField("_email")
 			.UsePropertyAccessMode(PropertyAccessMode.Property)
@@ -46,14 +46,20 @@ class UserConfiguration : IEntityTypeConfiguration<User>
 			.IsRequired()
 			.HasMaxLength(20);
 
-		builder.Navigation(u => u.Tasks)
-			.HasField("_tasks")
+		builder.HasMany<Assignment>("_assignments")
+			.WithOne(a => a.User)
+			.HasForeignKey(a => a.UserId);
+
+		builder.Navigation("_assignments")
 			.UsePropertyAccessMode(PropertyAccessMode.Field);
+
+		builder.Ignore(u => u.Tasks);
 
 		builder.Property<DateTimeOffset>("CreatedAt")
 			.IsRequired()
 			.HasColumnType("datetimeoffset")
 			.HasPrecision(0);
+
 		builder.Property<DateTimeOffset>("UpdatedAt")
 			.IsRequired()
 			.HasColumnType("datetimeoffset")

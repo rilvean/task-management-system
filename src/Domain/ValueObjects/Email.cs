@@ -18,13 +18,16 @@ public sealed record Email
 
 	public static Email From(string value)
 	{
-		if (string.IsNullOrWhiteSpace(value) || !EmailRegex.IsMatch(value))
+		if (string.IsNullOrWhiteSpace(value))
+			throw new EmailException("Email is empty.");
+
+		value = value.Trim().ToLower();
+
+		if (!EmailRegex.IsMatch(value))
 			throw new EmailException("Invalid email.");
 
 		if (value.Length > MAX_LENGHT)
 			throw new EmailException("Email too long.");
-
-		value = value.Trim().ToLower();
 
 		return new Email(value);
 	}

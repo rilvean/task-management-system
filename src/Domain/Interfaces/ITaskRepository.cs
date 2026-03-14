@@ -5,14 +5,14 @@ namespace Domain.Interfaces;
 
 public interface ITaskRepository
 {
-	Task<MyTask?> GetByIdAsync(Guid Id);
-	Task<MyTask?> GetByNameAsync(string name);
-	Task<IReadOnlyList<MyTask>> GetByPriorityAsync(MyTaskPriority priority);
-	Task<IReadOnlyList<MyTask>> GetByStatusAsync(MyTaskStatus status);
-	Task<IReadOnlyList<MyTask>> GetAllAsync(
+	Task<WorkTask?> GetByIdAsync(Guid Id);
+	Task<WorkTask?> GetByNameAsync(string name);
+	Task<IReadOnlyList<WorkTask>> GetByPriorityAsync(MyTaskPriority priority);
+	Task<IReadOnlyList<WorkTask>> GetByStatusAsync(MyTaskStatus status);
+	Task<IReadOnlyList<WorkTask>> GetAllAsync(
 		MyTaskSortBy sortBy = MyTaskSortBy.Deadline,
 		bool desc = false);
 
-	Task AddAsync(MyTask task);
-	void Remove(MyTask task);
+	Task AddAsync(WorkTask task);
+	void Remove(WorkTask task);
 }

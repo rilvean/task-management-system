@@ -33,7 +33,10 @@ public static class PasswordHasher
 
 		string computedHash = Convert.ToBase64String(ComputeHash(password, salt));
 
-		return storedHash == computedHash;
+		return CryptographicOperations.FixedTimeEquals(
+			Convert.FromBase64String(storedHash),
+			Convert.FromBase64String(computedHash)
+		);
 	}
 
 	private static byte[] ComputeHash(string password, byte[] salt)

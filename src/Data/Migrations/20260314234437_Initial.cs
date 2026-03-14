@@ -47,28 +47,34 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskUsers",
+                name: "Assignments",
                 columns: table => new
                 {
-                    TasksId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TaskId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskUsers", x => new { x.TasksId, x.UsersId });
+                    table.PrimaryKey("PK_Assignments", x => new { x.TaskId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_TaskUsers_Tasks_TasksId",
-                        column: x => x.TasksId,
+                        name: "FK_Assignments_Tasks_TaskId",
+                        column: x => x.TaskId,
                         principalTable: "Tasks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TaskUsers_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_Assignments_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Assignments_UserId",
+                table: "Assignments",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_Deadline",
@@ -92,11 +98,6 @@ namespace Data.Migrations
                 column: "Status");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskUsers_UsersId",
-                table: "TaskUsers",
-                column: "UsersId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
                 table: "Users",
                 column: "Email",
@@ -117,7 +118,7 @@ namespace Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TaskUsers");
+                name: "Assignments");
 
             migrationBuilder.DropTable(
                 name: "Tasks");
