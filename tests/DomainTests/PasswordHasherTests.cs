@@ -14,7 +14,7 @@ public class PasswordHasherTests
 		Assert.NotNull(hash);
 		Assert.IsType<PasswordHash>(hash);
 		Assert.Contains(":", hash.Value);
-		Assert.True(hash.Value.Length >= 20);
+		Assert.Equal(69, hash.Value.Length);
 	}
 
 	[Fact]

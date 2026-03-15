@@ -7,8 +7,8 @@ namespace DomainTests;
 
 public class UserNegativeTests
 {
-	private Email emailTest = Email.From("test@example.com");
-	private PasswordHash passwordTest = PasswordHash.From(PasswordHasher.Hash("hash"));
+	private readonly Email emailTest = Email.From("test@example.com");
+	private readonly PasswordHash passwordTest = PasswordHash.From(PasswordHasher.Hash("hash"));
 
 	[Fact]
 	public void User_Creation_ShouldThrow_WhenNameIsNullOrWhitespace()

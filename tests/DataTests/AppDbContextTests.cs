@@ -9,7 +9,7 @@ public class AppDbContextTests
 	{
 		var context = DbContextFactory.Create();
 
-		var task = new MyTask("task", null);
+		var task = new WorkTask("task", null);
 
 		context.Tasks.Add(task);
 

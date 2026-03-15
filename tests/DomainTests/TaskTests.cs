@@ -8,7 +8,7 @@ public class TaskTests
 	[Fact]
 	public void Task_Creation_ShouldInitializeProperties()
 	{
-		var task = new MyTask("Task1", "Description");
+		var task = new WorkTask("Task1", "Description");
 
 		Assert.Equal("Task1", task.Name);
 		Assert.Equal("Description", task.Description);
@@ -22,7 +22,7 @@ public class TaskTests
 	[Fact]
 	public void Rename_ShouldUpdateName()
 	{
-		var task = new MyTask("OldName", null);
+		var task = new WorkTask("OldName", null);
 
 		task.Rename("NewName");
 
@@ -32,7 +32,7 @@ public class TaskTests
 	[Fact]
 	public void ChangeDescription_ShouldUpdateDescription()
 	{
-		var task = new MyTask("Task", "Old");
+		var task = new WorkTask("Task", "Old");
 
 		task.ChangeDescription("New");
 
@@ -42,7 +42,7 @@ public class TaskTests
 	[Fact]
 	public void SetDeadline_ShouldSet_WhenDeadlineInFuture()
 	{
-		var task = new MyTask("Task", null);
+		var task = new WorkTask("Task", null);
 		var future = DateTime.UtcNow.AddMinutes(5);
 
 		task.SetDeadline(future);
@@ -53,7 +53,7 @@ public class TaskTests
 	[Fact]
 	public void SetDeadline_ShouldSet_WhenDeadlineIsNull()
 	{
-		var task = new MyTask("Task", null);
+		var task = new WorkTask("Task", null);
 
 		task.SetDeadline(null);
 
@@ -63,7 +63,7 @@ public class TaskTests
 	[Fact]
 	public void ChangePriority_ShouldUpdatePriority()
 	{
-		var task = new MyTask("Task", null);
+		var task = new WorkTask("Task", null);
 
 		task.ChangePriority(MyTaskPriority.High);
 
@@ -73,7 +73,7 @@ public class TaskTests
 	[Fact]
 	public void ChangeStatus_ShouldUpdateStatus()
 	{
-		var task = new MyTask("Task", null);
+		var task = new WorkTask("Task", null);
 
 		task.ChangeStatus(MyTaskStatus.Completed);
 
@@ -83,7 +83,7 @@ public class TaskTests
 	[Fact]
 	public void ChangePriority_ShouldNotThrow_ForAnyEnumValue()
 	{
-		var task = new MyTask("Task", null);
+		var task = new WorkTask("Task", null);
 		foreach (MyTaskPriority value in Enum.GetValues(typeof(MyTaskPriority)))
 		{
 			task.ChangePriority(value);
@@ -94,7 +94,7 @@ public class TaskTests
 	[Fact]
 	public void ChangeStatus_ShouldNotThrow_ForAnyEnumValue()
 	{
-		var task = new MyTask("Task", null);
+		var task = new WorkTask("Task", null);
 		foreach (MyTaskStatus value in Enum.GetValues(typeof(MyTaskStatus)))
 		{
 			task.ChangeStatus(value);

@@ -7,8 +7,8 @@ namespace DomainTests;
 
 public class UserTests
 {
-	private Email emailTest = Email.From("test@example.com");
-	private PasswordHash passwordTest = PasswordHash.From(PasswordHasher.Hash("hash"));
+	private readonly Email emailTest = Email.From("test@example.com");
+	private readonly PasswordHash passwordTest = PasswordHash.From(PasswordHasher.Hash("hash"));
 
 	[Fact]
 	public void User_Creation_ShouldInitializeProperties()
@@ -30,11 +30,7 @@ public class UserTests
 	[Fact]
 	public void ChangeName_ShouldUpdateName()
 	{
-		var user = new User(
-			"Old",
-			emailTest,
-			passwordTest,
-			UserRole.Employee);
+		var user = new User("Old", emailTest, passwordTest, UserRole.Employee);
 
 		user.ChangeName("New");
 
@@ -44,11 +40,7 @@ public class UserTests
 	[Fact]
 	public void ChangeEmail_ShouldUpdateEmail()
 	{
-		var user = new User(
-			"Name",
-			emailTest,
-			passwordTest,
-			UserRole.Employee);
+		var user = new User("Old", emailTest, passwordTest, UserRole.Employee);
 		var newEmail = Email.From("new@example.com");
 
 		user.ChangeEmail(newEmail);
@@ -59,11 +51,7 @@ public class UserTests
 	[Fact]
 	public void ChangePassword_ShouldUpdatePassword()
 	{
-		var user = new User(
-			"Name", 
-			emailTest,
-			passwordTest,
-			UserRole.Employee);
+		var user = new User("Old", emailTest, passwordTest, UserRole.Employee);
 		var newPassword = PasswordHash.From(PasswordHasher.Hash("new"));
 
 		user.ChangePassword(newPassword);
@@ -74,11 +62,7 @@ public class UserTests
 	[Fact]
 	public void ChangeRole_ShouldUpdateRole()
 	{
-		var user = new User(
-			"Name", 
-			emailTest,
-			passwordTest,
-			UserRole.Employee);
+		var user = new User("Old", emailTest, passwordTest, UserRole.Employee);
 
 		user.ChangeRole(UserRole.Admin);
 

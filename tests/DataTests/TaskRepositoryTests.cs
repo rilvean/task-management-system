@@ -12,10 +12,10 @@ public class TaskRepositoryTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var task = new MyTask("task1", null);
+		var task = new WorkTask("task1", null);
 
 		await repo.AddAsync(task);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		Assert.Single(context.Tasks);
 	}
@@ -26,10 +26,10 @@ public class TaskRepositoryTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var task = new MyTask("task1", null);
+		var task = new WorkTask("task1", null);
 
 		context.Tasks.Add(task);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		var result = await repo.GetByIdAsync(task.Id);
 
@@ -43,10 +43,10 @@ public class TaskRepositoryTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var task = new MyTask("task1", null);
+		var task = new WorkTask("task1", null);
 
 		context.Tasks.Add(task);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		var result = await repo.GetByNameAsync("task1");
 
@@ -59,12 +59,12 @@ public class TaskRepositoryTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var task1 = new MyTask("task1", null);
-		var task2 = new MyTask("task2", null);
+		var task1 = new WorkTask("task1", null);
+		var task2 = new WorkTask("task2", null);
 		task2.ChangePriority(MyTaskPriority.Low);
 
 		context.Tasks.AddRange(task1, task2);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		var result = await repo.GetByPriorityAsync(MyTaskPriority.Medium);
 
@@ -77,12 +77,12 @@ public class TaskRepositoryTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var task1 = new MyTask("task1", null);
-		var task2 = new MyTask("task2", null);
+		var task1 = new WorkTask("task1", null);
+		var task2 = new WorkTask("task2", null);
 		task2.ChangeStatus(MyTaskStatus.Completed);
 
 		context.Tasks.AddRange(task1, task2);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		var result = await repo.GetByStatusAsync(MyTaskStatus.Completed);
 
@@ -95,11 +95,11 @@ public class TaskRepositoryTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var t1 = new MyTask("a", null);
-		var t2 = new MyTask("b", null);
+		var t1 = new WorkTask("a", null);
+		var t2 = new WorkTask("b", null);
 
 		context.Tasks.AddRange(t1, t2);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		var result = await repo.GetAllAsync(MyTaskSortBy.Name);
 
@@ -112,13 +112,13 @@ public class TaskRepositoryTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var task = new MyTask("task", null);
+		var task = new WorkTask("task", null);
 
 		context.Tasks.Add(task);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		repo.Remove(task);
-		await context.SaveChangesAsync();
+		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		Assert.Empty(context.Tasks);
 	}
