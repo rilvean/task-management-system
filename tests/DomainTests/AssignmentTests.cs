@@ -8,7 +8,7 @@ namespace DomainTests;
 public class AssignmentTests
 {
 	private readonly Email emailTest = Email.From("test@example.com");
-	private readonly PasswordHash passwordTest = PasswordHash.From(PasswordHasher.Hash("hash"));
+	private readonly PasswordHash passwordTest = PasswordHasher.Hash("hash");
 
 	[Fact]
 	public void AssignExecutor_ShouldAddUserAndSyncTask()
@@ -18,7 +18,7 @@ public class AssignmentTests
 
 		task.AssignExecutor(user);
 
-		Assert.Single(task.Users);
+		Assert.Single(task.Executors);
 		Assert.Single(user.Tasks);
 	}
 
@@ -31,7 +31,7 @@ public class AssignmentTests
 		task.AssignExecutor(user);
 		task.RemoveExecutor(user);
 
-		Assert.DoesNotContain(user, task.Users);
+		Assert.DoesNotContain(user, task.Executors);
 		Assert.DoesNotContain(task, user.Tasks);
 	}
 
@@ -45,7 +45,7 @@ public class AssignmentTests
 
 		task.CompleteBy(user);
 
-		Assert.Equal(MyTaskStatus.Completed, task.Status);
+		Assert.Equal(WorkTaskStatus.Completed, task.Status);
 	}
 
 	[Fact]
@@ -62,7 +62,7 @@ public class AssignmentTests
 		task.CompleteBy(user1);
 		task.CompleteBy(user2);
 
-		Assert.Equal(MyTaskStatus.Completed, task.Status);
+		Assert.Equal(WorkTaskStatus.Completed, task.Status);
 	}
 
 	[Fact]
@@ -78,6 +78,6 @@ public class AssignmentTests
 
 		task.CompleteBy(user2);
 
-		Assert.Equal(MyTaskStatus.Active, task.Status);
+		Assert.Equal(WorkTaskStatus.Active, task.Status);
 	}
 }

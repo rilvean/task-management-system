@@ -8,7 +8,7 @@ namespace DomainTests;
 public class UserTests
 {
 	private readonly Email emailTest = Email.From("test@example.com");
-	private readonly PasswordHash passwordTest = PasswordHash.From(PasswordHasher.Hash("hash"));
+	private readonly PasswordHash passwordTest = PasswordHasher.Hash("hash");
 
 	[Fact]
 	public void User_Creation_ShouldInitializeProperties()
@@ -52,7 +52,7 @@ public class UserTests
 	public void ChangePassword_ShouldUpdatePassword()
 	{
 		var user = new User("Old", emailTest, passwordTest, UserRole.Employee);
-		var newPassword = PasswordHash.From(PasswordHasher.Hash("new"));
+		var newPassword = PasswordHasher.Hash("new");
 
 		user.ChangePassword(newPassword);
 

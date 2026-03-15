@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums;
 
-public enum MyTaskStatus
+public enum WorkTaskStatus
 {
 	Active,
 	Completed,

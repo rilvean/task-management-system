@@ -8,10 +8,8 @@ public interface IUserRepository
 {
 	Task<User?> GetByIdAsync(Guid Id);
 	Task<User?> GetByEmailAsync(Email email);
-	Task<IReadOnlyList<User>> GetAllAsync(
-		UserSortBy sortBy = UserSortBy.Email,
-		bool desc = false);
+	Task<IReadOnlyList<User>> GetAllSortedAsync(UserSortBy sortBy = default, bool desc = default);
 
 	Task AddAsync(User user);
-	void Remove(User user);
+	void Delete(User user);
 }

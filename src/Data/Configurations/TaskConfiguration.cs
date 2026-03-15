@@ -45,7 +45,7 @@ class TaskConfiguration : IEntityTypeConfiguration<WorkTask>
 		builder.Navigation("_assignments")
 			.UsePropertyAccessMode(PropertyAccessMode.Field);
 
-		builder.Ignore(t => t.Users);
+		builder.Ignore(t => t.Executors);
 
 		builder.Property<DateTimeOffset>("CreatedAt")
 			.IsRequired()

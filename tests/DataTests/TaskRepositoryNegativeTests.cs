@@ -32,7 +32,7 @@ public class TaskRepositoryNegativeTests
 		var context = DbContextFactory.Create();
 		var repo = new TaskRepository(context);
 
-		var result = await repo.GetByPriorityAsync(Domain.Enums.MyTaskPriority.High);
+		var result = await repo.GetByPriorityAsync(Domain.Enums.WorkTaskPriority.High);
 
 		Assert.Empty(result);
 	}

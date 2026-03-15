@@ -10,7 +10,7 @@ public class UserRepositoryTests
 {
 	private string _name = "test";
 	private Email _email = Email.From("test@mail.com");
-	private PasswordHash _password = PasswordHash.From(PasswordHasher.Hash("123"));
+	private PasswordHash _password = PasswordHasher.Hash("123");
 	private UserRole _role = UserRole.Employee;
 
 	[Fact]
@@ -57,7 +57,7 @@ public class UserRepositoryTests
 		context.Users.AddRange(u1, u2);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-		var result = await repo.GetAllAsync(UserSortBy.Name);
+		var result = await repo.GetAllSortedAsync(UserSortBy.Name);
 
 		Assert.Equal("a", result.First().Name);
 	}
@@ -73,7 +73,7 @@ public class UserRepositoryTests
 		context.Users.Add(user);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-		repo.Remove(user);
+		repo.Delete(user);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		Assert.Empty(context.Users);

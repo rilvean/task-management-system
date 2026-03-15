@@ -1,9 +1,9 @@
 ﻿namespace Domain.Enums;
 
-public enum MyTaskSortBy
+public enum WorkTaskSortBy
 {
-	Name,
 	Deadline,
 	Priority,
-	Status
+	Status,
+	Name
 }

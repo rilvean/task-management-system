@@ -13,18 +13,18 @@ public class TaskTests
 		Assert.Equal("Task1", task.Name);
 		Assert.Equal("Description", task.Description);
 		Assert.Null(task.Deadline);
-		Assert.Equal(MyTaskPriority.Medium, task.Priority);
-		Assert.Equal(MyTaskStatus.Active, task.Status);
-		Assert.Empty(task.Users);
+		Assert.Equal(WorkTaskPriority.Medium, task.Priority);
+		Assert.Equal(WorkTaskStatus.Active, task.Status);
+		Assert.Empty(task.Executors);
 		Assert.NotEqual(Guid.Empty, task.Id);
 	}
 
 	[Fact]
-	public void Rename_ShouldUpdateName()
+	public void ChangeName_ShouldUpdateName()
 	{
 		var task = new WorkTask("OldName", null);
 
-		task.Rename("NewName");
+		task.ChangeName("NewName");
 
 		Assert.Equal("NewName", task.Name);
 	}
@@ -65,9 +65,9 @@ public class TaskTests
 	{
 		var task = new WorkTask("Task", null);
 
-		task.ChangePriority(MyTaskPriority.High);
+		task.ChangePriority(WorkTaskPriority.High);
 
-		Assert.Equal(MyTaskPriority.High, task.Priority);
+		Assert.Equal(WorkTaskPriority.High, task.Priority);
 	}
 
 	[Fact]
@@ -75,16 +75,16 @@ public class TaskTests
 	{
 		var task = new WorkTask("Task", null);
 
-		task.ChangeStatus(MyTaskStatus.Completed);
+		task.ChangeStatus(WorkTaskStatus.Completed);
 
-		Assert.Equal(MyTaskStatus.Completed, task.Status);
+		Assert.Equal(WorkTaskStatus.Completed, task.Status);
 	}
 
 	[Fact]
 	public void ChangePriority_ShouldNotThrow_ForAnyEnumValue()
 	{
 		var task = new WorkTask("Task", null);
-		foreach (MyTaskPriority value in Enum.GetValues(typeof(MyTaskPriority)))
+		foreach (WorkTaskPriority value in Enum.GetValues(typeof(WorkTaskPriority)))
 		{
 			task.ChangePriority(value);
 			Assert.Equal(value, task.Priority);
@@ -95,7 +95,7 @@ public class TaskTests
 	public void ChangeStatus_ShouldNotThrow_ForAnyEnumValue()
 	{
 		var task = new WorkTask("Task", null);
-		foreach (MyTaskStatus value in Enum.GetValues(typeof(MyTaskStatus)))
+		foreach (WorkTaskStatus value in Enum.GetValues(typeof(WorkTaskStatus)))
 		{
 			task.ChangeStatus(value);
 			Assert.Equal(value, task.Status);

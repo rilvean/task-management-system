@@ -2,7 +2,7 @@
 
 public enum UserSortBy
 {
-	Name,
 	Email,
-	Role
+	Role,
+	Name
 }

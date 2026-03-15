@@ -12,7 +12,7 @@ public class TaskRepository(AppDbContext dbContext)
 	public async Task AddAsync(WorkTask task)
 		=> await dbContext.Tasks.AddAsync(task);
 
-	public async Task<IReadOnlyList<WorkTask>> GetAllAsync(MyTaskSortBy sortBy = MyTaskSortBy.Deadline, bool desc = false)
+	public async Task<IReadOnlyList<WorkTask>> GetAllSortedAsync(WorkTaskSortBy sortBy = default, bool descending = default)
 	{
 		IQueryable<WorkTask> query = dbContext.Tasks.AsNoTracking()
 			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
@@ -20,21 +20,21 @@ public class TaskRepository(AppDbContext dbContext)
 
 		query = sortBy switch
 		{
-			MyTaskSortBy.Name
-				=> desc ? query.OrderByDescending(t => t.Name)
-					: query.OrderBy(t => t.Name),
-
-			MyTaskSortBy.Deadline
-				=> desc ? query.OrderByDescending(t => t.Deadline)
+			WorkTaskSortBy.Deadline
+				=> descending ? query.OrderByDescending(t => t.Deadline)
 					: query.OrderBy(t => t.Deadline),
 
-			MyTaskSortBy.Priority
-				=> desc ? query.OrderByDescending(t => t.Priority)
-					: query.OrderBy(t => t.Priority),
+			WorkTaskSortBy.Priority
+				=> descending ? query.OrderByDescending(t => t.Priority)
+				: query.OrderBy(t => t.Priority),
 
-			MyTaskSortBy.Status
-				=> desc ? query.OrderByDescending(t => t.Status)
+			WorkTaskSortBy.Status
+				=> descending ? query.OrderByDescending(t => t.Status)
 					: query.OrderBy(t => t.Status),
+
+			WorkTaskSortBy.Name
+				=> descending ? query.OrderByDescending(t => t.Name)
+					: query.OrderBy(t => t.Name),
 
 			_ => query
 		};
@@ -54,20 +54,20 @@ public class TaskRepository(AppDbContext dbContext)
 				.ThenInclude(a => a.User)
 			.SingleOrDefaultAsync(t => t.Name == name);
 
-	public async Task<IReadOnlyList<WorkTask>> GetByPriorityAsync(MyTaskPriority priority)
+	public async Task<IReadOnlyList<WorkTask>> GetByPriorityAsync(WorkTaskPriority priority)
 		=> await dbContext.Tasks.AsNoTracking()
 			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
 				.ThenInclude(a => a.User)
 			.Where(t => t.Priority == priority)
 			.ToListAsync();
 
-	public async Task<IReadOnlyList<WorkTask>> GetByStatusAsync(MyTaskStatus status)
+	public async Task<IReadOnlyList<WorkTask>> GetByStatusAsync(WorkTaskStatus status)
 		=> await dbContext.Tasks.AsNoTracking()
 			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
 				.ThenInclude(a => a.User)
 			.Where(t => t.Status == status)
 			.ToListAsync();
 
-	public void Remove(WorkTask task)
+	public void Delete(WorkTask task)
 		=> dbContext.Tasks.Remove(task);
 }

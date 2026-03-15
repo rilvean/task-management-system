@@ -1,9 +1,9 @@
 ﻿namespace Domain.Enums;
 
-public enum MyTaskPriority
+public enum WorkTaskPriority
 {
-	Low,
 	Medium,
+	Low,
 	High,
 	Critical
 }

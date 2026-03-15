@@ -61,12 +61,12 @@ public class TaskRepositoryTests
 
 		var task1 = new WorkTask("task1", null);
 		var task2 = new WorkTask("task2", null);
-		task2.ChangePriority(MyTaskPriority.Low);
+		task2.ChangePriority(WorkTaskPriority.Low);
 
 		context.Tasks.AddRange(task1, task2);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-		var result = await repo.GetByPriorityAsync(MyTaskPriority.Medium);
+		var result = await repo.GetByPriorityAsync(WorkTaskPriority.Medium);
 
 		Assert.Single(result);
 	}
@@ -79,12 +79,12 @@ public class TaskRepositoryTests
 
 		var task1 = new WorkTask("task1", null);
 		var task2 = new WorkTask("task2", null);
-		task2.ChangeStatus(MyTaskStatus.Completed);
+		task2.ChangeStatus(WorkTaskStatus.Completed);
 
 		context.Tasks.AddRange(task1, task2);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-		var result = await repo.GetByStatusAsync(MyTaskStatus.Completed);
+		var result = await repo.GetByStatusAsync(WorkTaskStatus.Completed);
 
 		Assert.Single(result);
 	}
@@ -101,7 +101,7 @@ public class TaskRepositoryTests
 		context.Tasks.AddRange(t1, t2);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-		var result = await repo.GetAllAsync(MyTaskSortBy.Name);
+		var result = await repo.GetAllSortedAsync(WorkTaskSortBy.Name);
 
 		Assert.Equal("a", result.First().Name);
 	}
@@ -117,7 +117,7 @@ public class TaskRepositoryTests
 		context.Tasks.Add(task);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-		repo.Remove(task);
+		repo.Delete(task);
 		await context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 		Assert.Empty(context.Tasks);

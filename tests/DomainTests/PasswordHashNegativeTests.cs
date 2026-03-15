@@ -7,8 +7,9 @@ public class PasswordHashNegativeTests
 {
 	[Theory]
 	[InlineData("")]
-	[InlineData("shortstring")]
-	public void PasswordHash_From_ShouldThrow_WhenTooShortOrEmpty(string input)
+	[InlineData(" ")]
+	[InlineData("not69lengthstring")]
+	public void PasswordHash_From_ShouldThrow_WhenLengthNotMatchOrEmpty(string input)
 	{
 		Assert.Throws<PasswordHashException>(() => PasswordHash.From(input));
 	}

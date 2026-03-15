@@ -2,7 +2,6 @@
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Models.Submodels;
-using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models;
 
@@ -41,10 +40,10 @@ public class WorkTask : IAuditable
 
 	public DateTimeOffset? Deadline { get; private set; }
 
-	public MyTaskPriority Priority { get; private set; } = MyTaskPriority.Medium;
-	public MyTaskStatus Status { get; private set; } = MyTaskStatus.Active;
+	public WorkTaskPriority Priority { get; private set; } = default;
+	public WorkTaskStatus Status { get; private set; } = default;
 
-	public IEnumerable<User> Users => _assignments.Select(x => x.User);
+	public IEnumerable<User> Executors => _assignments.Select(x => x.User);
 	#endregion
 
 	private WorkTask() { }
@@ -55,7 +54,7 @@ public class WorkTask : IAuditable
 		Description = description;
 	}
 
-	public void Rename(string newName) => Name = newName;
+	public void ChangeName(string newName) => Name = newName;
 	public void ChangeDescription(string? newDescription) => Description = newDescription;
 	public void SetDeadline(DateTimeOffset? deadline)
 	{
@@ -65,8 +64,8 @@ public class WorkTask : IAuditable
 		Deadline = deadline;
 	}
 
-	public void ChangePriority(MyTaskPriority newPriority) => Priority = newPriority;
-	public void ChangeStatus(MyTaskStatus newStatus) => Status = newStatus;
+	public void ChangePriority(WorkTaskPriority newPriority) => Priority = newPriority;
+	public void ChangeStatus(WorkTaskStatus newStatus) => Status = newStatus;
 
 	#region Methods for executors
 	public void AssignExecutor(User employee)
@@ -90,8 +89,8 @@ public class WorkTask : IAuditable
 
 		EnsureEmployee(employee);
 
-		var assignment = _assignments.SingleOrDefault(a => a.UserId == employee.Id) ??
-			throw new NotFoundException(nameof(employee));
+		var assignment = _assignments.SingleOrDefault(a => a.UserId == employee.Id)
+			?? throw new NotFoundException(nameof(employee));
 
 		if (_assignments.Remove(assignment))
 			employee.RemoveAssignment(assignment);
@@ -111,7 +110,7 @@ public class WorkTask : IAuditable
 		var isAllComplete = _assignments.All(x => x.IsCompleted);
 
 		if (isAllComplete)
-			Status = MyTaskStatus.Completed;
+			Status = WorkTaskStatus.Completed;
 	}
 	#endregion
 

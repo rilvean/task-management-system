@@ -13,7 +13,7 @@ public class UserRepository(AppDbContext dbContext)
 	public async Task AddAsync(User user)
 		=> await dbContext.Users.AddAsync(user);
 
-	public async Task<IReadOnlyList<User>> GetAllAsync(UserSortBy sortBy = UserSortBy.Email, bool desc = false)
+	public async Task<IReadOnlyList<User>> GetAllSortedAsync(UserSortBy sortBy = default, bool descending = default)
 	{
 		IQueryable<User> query = dbContext.Users.AsNoTracking()
 			.Include(u => EF.Property<IEnumerable<Assignment>>(u, "_assignments"))
@@ -21,17 +21,17 @@ public class UserRepository(AppDbContext dbContext)
 
 		query = sortBy switch
 		{
-			UserSortBy.Name
-				=> desc ? query.OrderByDescending(u => u.Name)
-					: query.OrderBy(u => u.Name),
-
 			UserSortBy.Email
-				=> desc ? query.OrderByDescending(u => u.Email)
+				=> descending ? query.OrderByDescending(u => u.Email)
 					: query.OrderBy(u => u.Email),
 
 			UserSortBy.Role
-				=> desc ? query.OrderByDescending(u => u.Role)
+				=> descending ? query.OrderByDescending(u => u.Role)
 					: query.OrderBy(u => u.Role),
+
+			UserSortBy.Name
+				=> descending ? query.OrderByDescending(u => u.Name)
+					: query.OrderBy(u => u.Name),
 
 			_ => query
 		};
@@ -51,6 +51,6 @@ public class UserRepository(AppDbContext dbContext)
 				.ThenInclude(a => a.Task)
 			.SingleOrDefaultAsync(u => u.Id == Id);
 
-	public void Remove(User user)
+	public void Delete(User user)
 		=> dbContext.Users.Remove(user);
 }

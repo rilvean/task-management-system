@@ -7,12 +7,10 @@ public interface ITaskRepository
 {
 	Task<WorkTask?> GetByIdAsync(Guid Id);
 	Task<WorkTask?> GetByNameAsync(string name);
-	Task<IReadOnlyList<WorkTask>> GetByPriorityAsync(MyTaskPriority priority);
-	Task<IReadOnlyList<WorkTask>> GetByStatusAsync(MyTaskStatus status);
-	Task<IReadOnlyList<WorkTask>> GetAllAsync(
-		MyTaskSortBy sortBy = MyTaskSortBy.Deadline,
-		bool desc = false);
+	Task<IReadOnlyList<WorkTask>> GetByPriorityAsync(WorkTaskPriority priority);
+	Task<IReadOnlyList<WorkTask>> GetByStatusAsync(WorkTaskStatus status);
+	Task<IReadOnlyList<WorkTask>> GetAllSortedAsync(WorkTaskSortBy sortBy = default, bool desc = default);
 
 	Task AddAsync(WorkTask task);
-	void Remove(WorkTask task);
+	void Delete(WorkTask task);
 }

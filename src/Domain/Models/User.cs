@@ -82,7 +82,6 @@ public class User : IAuditable
 
 		if (!_assignments.Remove(assignment))
 			throw new NotFoundException(nameof(assignment));
-			
 	}
 	#endregion
 }
