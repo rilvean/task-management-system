@@ -7,7 +7,7 @@ namespace App.Services;
 
 public class AuthorizationService(IUserRepository ur)
 {
-	public async Task<(Guid id, UserRole role)> LoginAsync(string email, string password)
+	public async Task<(Guid id, UserRole role, string name)> LoginAsync(string email, string password)
 	{
 		var user = await ur.GetByEmailAsync(Email.From(email))
 			?? throw new AuthorizationException("User not found.");
@@ -15,6 +15,6 @@ public class AuthorizationService(IUserRepository ur)
 		if (!PasswordHasher.Verify(password, user.PasswordHash))
 			throw new AuthorizationException($"Invalid {nameof(password)}.");
 
-		return (user.Id, user.Role);
+		return (user.Id, user.Role, user.Name);
 	}
 }

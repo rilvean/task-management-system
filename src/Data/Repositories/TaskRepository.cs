@@ -15,8 +15,7 @@ public class TaskRepository(AppDbContext dbContext)
 	public async Task<IReadOnlyList<WorkTask>> GetAllSortedAsync(WorkTaskSortBy sortBy = default, bool descending = default)
 	{
 		IQueryable<WorkTask> query = dbContext.Tasks.AsNoTracking()
-			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
-				.ThenInclude(a => a.User);
+			.IncludeAssignments();
 
 		query = sortBy switch
 		{
@@ -44,27 +43,23 @@ public class TaskRepository(AppDbContext dbContext)
 
 	public async Task<WorkTask?> GetByIdAsync(Guid Id)
 		=> await dbContext.Tasks
-			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
-				.ThenInclude(a => a.User)
+			.IncludeAssignments()
 			.SingleOrDefaultAsync(t => t.Id == Id);
 
 	public async Task<WorkTask?> GetByNameAsync(string name)
 		=> await dbContext.Tasks
-			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
-				.ThenInclude(a => a.User)
+			.IncludeAssignments()
 			.SingleOrDefaultAsync(t => t.Name == name);
 
 	public async Task<IReadOnlyList<WorkTask>> GetByPriorityAsync(WorkTaskPriority priority)
 		=> await dbContext.Tasks.AsNoTracking()
-			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
-				.ThenInclude(a => a.User)
+			.IncludeAssignments()
 			.Where(t => t.Priority == priority)
 			.ToListAsync();
 
 	public async Task<IReadOnlyList<WorkTask>> GetByStatusAsync(WorkTaskStatus status)
 		=> await dbContext.Tasks.AsNoTracking()
-			.Include(t => EF.Property<IEnumerable<Assignment>>(t, "_assignments"))
-				.ThenInclude(a => a.User)
+			.IncludeAssignments()
 			.Where(t => t.Status == status)
 			.ToListAsync();
 
