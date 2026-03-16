@@ -20,6 +20,6 @@ sealed class ServiceHelper(IUnitOfWork unitOfWork)
 	=> await unitOfWork.UserRepository.GetByIdAsync(id)
 		?? throw new NotFoundException("User not found.");
 	internal async Task<WorkTask> EnsureTaskExistAsync(Guid taskId)
-		=> await unitOfWork.TaskRepository.GetByIdAsync(taskId)
+		=> await unitOfWork.WorkTaskRepository.GetByIdAsync(taskId)
 			?? throw new NotFoundException("Task not found.");
 }

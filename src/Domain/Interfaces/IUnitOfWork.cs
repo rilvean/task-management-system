@@ -2,7 +2,7 @@
 
 public interface IUnitOfWork
 {
-	IWorkTaskRepository TaskRepository { get; }
+	IWorkTaskRepository WorkTaskRepository { get; }
 	IUserRepository UserRepository { get; }
 	Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

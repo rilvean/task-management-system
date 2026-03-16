@@ -11,7 +11,7 @@ public class UnitOfWork(AppDbContext dbContext) : IUnitOfWork
 	private WorkTaskRepository? _taskRepository = new WorkTaskRepository(dbContext);
 	private UserRepository? _userRepository = new UserRepository(dbContext);
 
-	public IWorkTaskRepository TaskRepository
+	public IWorkTaskRepository WorkTaskRepository
 		=> _taskRepository ??= new WorkTaskRepository(_dbContext);
 	public IUserRepository UserRepository
 		=> _userRepository ??= new UserRepository(_dbContext);

@@ -19,21 +19,21 @@ public class WorkTaskService(IUnitOfWork unitOfWork)
 	{
 		await _helper.EnsureAccessAsync(managerId, UserRole.Manager);
 
-		return await unitOfWork.TaskRepository.GetAllSortedAsync(sortBy, descending);
+		return await unitOfWork.WorkTaskRepository.GetAllSortedAsync(sortBy, descending);
 	}
 
 	public async Task<IReadOnlyList<WorkTask>> GetByPriorityAsync(Guid managerId, WorkTaskPriority priority)
 	{
 		await _helper.EnsureAccessAsync(managerId, UserRole.Manager);
 
-		return await unitOfWork.TaskRepository.GetByPriorityAsync(priority);
+		return await unitOfWork.WorkTaskRepository.GetByPriorityAsync(priority);
 	}
 
 	public async Task<IReadOnlyList<WorkTask>> GetByStatusAsync(Guid managerId, WorkTaskStatus status)
 	{
 		await _helper.EnsureAccessAsync(managerId, UserRole.Manager);
 
-		return await unitOfWork.TaskRepository.GetByStatusAsync(status);
+		return await unitOfWork.WorkTaskRepository.GetByStatusAsync(status);
 	}
 
 	public async Task<Guid> CreateAsync(Guid managerId, string name, string? description)
@@ -42,7 +42,7 @@ public class WorkTaskService(IUnitOfWork unitOfWork)
 
 		var task = new WorkTask(name, description);
 
-		await unitOfWork.TaskRepository.AddAsync(task);
+		await unitOfWork.WorkTaskRepository.AddAsync(task);
 		await unitOfWork.SaveChangesAsync();
 
 		return task.Id;
@@ -53,7 +53,7 @@ public class WorkTaskService(IUnitOfWork unitOfWork)
 		await _helper.EnsureAccessAsync(managerId, UserRole.Manager);
 		var task = await _helper.EnsureTaskExistAsync(taskId);
 
-		unitOfWork.TaskRepository.Delete(task);
+		unitOfWork.WorkTaskRepository.Delete(task);
 
 		await unitOfWork.SaveChangesAsync();
 	}
