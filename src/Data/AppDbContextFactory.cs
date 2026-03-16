@@ -8,12 +8,12 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
 	public AppDbContext CreateDbContext(string[] args)
 	{
-		var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-
 		IConfiguration configuration = new ConfigurationBuilder()
-			.SetBasePath(Directory.GetCurrentDirectory())
-			.AddJsonFile("appsettings.json")
+			.SetBasePath(AppContext.BaseDirectory)
+			.AddJsonFile("appsettings.Development.json")
 			.Build();
+
+		var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
 		optionsBuilder.UseSqlServer(configuration.GetConnectionString("Default"));
 

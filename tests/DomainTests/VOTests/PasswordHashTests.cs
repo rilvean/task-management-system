@@ -1,7 +1,7 @@
 ﻿using Domain.Services;
 using Domain.ValueObjects;
 
-namespace DomainTests;
+namespace DomainTests.VOTests;
 
 public class PasswordHashTests
 {

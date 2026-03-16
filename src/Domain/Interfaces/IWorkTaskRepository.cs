@@ -3,7 +3,7 @@ using Domain.Models;
 
 namespace Domain.Interfaces;
 
-public interface ITaskRepository
+public interface IWorkTaskRepository
 {
 	Task<WorkTask?> GetByIdAsync(Guid Id);
 	Task<WorkTask?> GetByNameAsync(string name);

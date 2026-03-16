@@ -3,7 +3,7 @@ using Domain.Models;
 using Domain.Services;
 using Domain.ValueObjects;
 
-namespace DomainTests;
+namespace DomainTests.ModelsTests;
 
 public class AssignmentTests
 {

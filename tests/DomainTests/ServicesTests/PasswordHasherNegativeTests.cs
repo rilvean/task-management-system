@@ -2,7 +2,7 @@
 using Domain.Services;
 using Domain.ValueObjects;
 
-namespace DomainTests;
+namespace DomainTests.ServicesTests;
 
 public class PasswordHasherNegativeTests
 {

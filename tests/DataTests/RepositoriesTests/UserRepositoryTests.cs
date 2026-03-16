@@ -4,7 +4,7 @@ using Domain.Models;
 using Domain.Services;
 using Domain.ValueObjects;
 
-namespace DataTests;
+namespace DataTests.RepositoriesTests;
 
 public class UserRepositoryTests
 {

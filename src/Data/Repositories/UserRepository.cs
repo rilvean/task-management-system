@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories;
 
-public class UserRepository(AppDbContext dbContext)
-	: IUserRepository
+public class UserRepository(AppDbContext dbContext) : IUserRepository
 {
 	public async Task AddAsync(User user)
 		=> await dbContext.Users.AddAsync(user);

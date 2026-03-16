@@ -1,11 +1,11 @@
 ﻿using Domain.Models;
 
-namespace DomainTests;
+namespace DomainTests.ModelsTests;
 
-public class TaskNegativeTests
+public class WorkTaskNegativeTests
 {
 	[Fact]
-	public void Task_Creation_ShouldThrow_WhenNameIsNullOrWhitespace()
+	public void WorkTask_Creation_ShouldThrow_WhenNameIsNullOrWhitespace()
 	{
 		Assert.Throws<ArgumentNullException>(() => new WorkTask(null!, null));
 		Assert.Throws<ArgumentNullException>(() => new WorkTask("", null));

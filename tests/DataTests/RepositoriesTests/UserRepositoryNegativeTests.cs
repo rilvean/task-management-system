@@ -1,7 +1,7 @@
 ﻿using Data.Repositories;
 using Domain.ValueObjects;
 
-namespace DataTests;
+namespace DataTests.RepositoriesTests;
 
 public class UserRepositoryNegativeTests
 {

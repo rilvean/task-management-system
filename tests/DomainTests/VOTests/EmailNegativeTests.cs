@@ -1,7 +1,7 @@
 ﻿using Domain.Exceptions;
 using Domain.ValueObjects;
 
-namespace DomainTests;
+namespace DomainTests.VOTests;
 
 public class EmailNegativeTests
 {

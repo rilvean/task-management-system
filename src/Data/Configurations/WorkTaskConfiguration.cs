@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Configurations;
 
-class TaskConfiguration : IEntityTypeConfiguration<WorkTask>
+class WorkTaskConfiguration : IEntityTypeConfiguration<WorkTask>
 {
 	public void Configure(EntityTypeBuilder<WorkTask> builder)
 	{

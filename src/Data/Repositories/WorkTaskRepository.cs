@@ -1,13 +1,11 @@
 ﻿using Domain.Enums;
 using Domain.Interfaces;
 using Domain.Models;
-using Domain.Models.Submodels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories;
 
-public class TaskRepository(AppDbContext dbContext)
-	: ITaskRepository
+public class WorkTaskRepository(AppDbContext dbContext) : IWorkTaskRepository
 {
 	public async Task AddAsync(WorkTask task)
 		=> await dbContext.Tasks.AddAsync(task);

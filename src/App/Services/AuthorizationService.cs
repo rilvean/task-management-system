@@ -5,11 +5,11 @@ using Domain.ValueObjects;
 
 namespace App.Services;
 
-public class AuthorizationService(IUserRepository ur)
+public class AuthorizationService(IUnitOfWork unitOfWork)
 {
 	public async Task<(Guid id, UserRole role, string name)> LoginAsync(string email, string password)
 	{
-		var user = await ur.GetByEmailAsync(Email.From(email))
+		var user = await unitOfWork.UserRepository.GetByEmailAsync(Email.From(email))
 			?? throw new AuthorizationException("User not found.");
 
 		if (!PasswordHasher.Verify(password, user.PasswordHash))

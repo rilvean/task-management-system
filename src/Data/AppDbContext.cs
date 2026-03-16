@@ -24,7 +24,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 		base.OnModelCreating(modelBuilder);
 
 		modelBuilder.ApplyConfiguration(new UserConfiguration());
-		modelBuilder.ApplyConfiguration(new TaskConfiguration());
+		modelBuilder.ApplyConfiguration(new WorkTaskConfiguration());
 		modelBuilder.ApplyConfiguration(new AssignmentConfiguration());
 	}
 

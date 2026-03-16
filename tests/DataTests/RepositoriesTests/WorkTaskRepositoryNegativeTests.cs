@@ -1,6 +1,6 @@
 ﻿using Data.Repositories;
 
-namespace DataTests;
+namespace DataTests.RepositoriesTests;
 
 public class TaskRepositoryNegativeTests
 {
@@ -8,7 +8,7 @@ public class TaskRepositoryNegativeTests
 	public async Task GetByIdAsync_ShouldReturnNull_WhenTaskDoesNotExist()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var result = await repo.GetByIdAsync(Guid.NewGuid());
 
@@ -19,7 +19,7 @@ public class TaskRepositoryNegativeTests
 	public async Task GetByNameAsync_ShouldReturnNull_WhenTaskDoesNotExist()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var result = await repo.GetByNameAsync("unknown");
 
@@ -30,7 +30,7 @@ public class TaskRepositoryNegativeTests
 	public async Task GetByPriorityAsync_ShouldReturnEmpty_WhenNoTasks()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var result = await repo.GetByPriorityAsync(Domain.Enums.WorkTaskPriority.High);
 

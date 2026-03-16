@@ -1,12 +1,12 @@
 ﻿using Domain.Enums;
 using Domain.Models;
 
-namespace DomainTests;
+namespace DomainTests.ModelsTests;
 
-public class TaskTests
+public class WorkTaskTests
 {
 	[Fact]
-	public void Task_Creation_ShouldInitializeProperties()
+	public void WorkTask_Creation_ShouldInitializeProperties()
 	{
 		var task = new WorkTask("Task1", "Description");
 

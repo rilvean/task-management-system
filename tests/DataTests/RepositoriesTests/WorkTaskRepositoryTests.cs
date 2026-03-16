@@ -2,15 +2,15 @@
 using Domain.Enums;
 using Domain.Models;
 
-namespace DataTests;
+namespace DataTests.RepositoriesTests;
 
-public class TaskRepositoryTests
+public class WorkTaskRepositoryTests
 {
 	[Fact]
-	public async Task AddAsync_ShouldAddTask()
+	public async Task AddAsync_ShouldAddWorkTask()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var task = new WorkTask("task1", null);
 
@@ -21,10 +21,10 @@ public class TaskRepositoryTests
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnTask()
+	public async Task GetByIdAsync_ShouldReturnWorkTask()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var task = new WorkTask("task1", null);
 
@@ -38,10 +38,10 @@ public class TaskRepositoryTests
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldReturnTask()
+	public async Task GetByNameAsync_ShouldReturnWorkTask()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var task = new WorkTask("task1", null);
 
@@ -54,10 +54,10 @@ public class TaskRepositoryTests
 	}
 
 	[Fact]
-	public async Task GetByPriorityAsync_ShouldReturnFilteredTasks()
+	public async Task GetByPriorityAsync_ShouldReturnFilteredWorkTasks()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var task1 = new WorkTask("task1", null);
 		var task2 = new WorkTask("task2", null);
@@ -72,10 +72,10 @@ public class TaskRepositoryTests
 	}
 
 	[Fact]
-	public async Task GetByStatusAsync_ShouldReturnFilteredTasks()
+	public async Task GetByStatusAsync_ShouldReturnFilteredWorkTasks()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var task1 = new WorkTask("task1", null);
 		var task2 = new WorkTask("task2", null);
@@ -93,7 +93,7 @@ public class TaskRepositoryTests
 	public async Task GetAllAsync_ShouldSortByName()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var t1 = new WorkTask("a", null);
 		var t2 = new WorkTask("b", null);
@@ -110,7 +110,7 @@ public class TaskRepositoryTests
 	public async Task Remove_ShouldDeleteTask()
 	{
 		var context = DbContextFactory.Create();
-		var repo = new TaskRepository(context);
+		var repo = new WorkTaskRepository(context);
 
 		var task = new WorkTask("task", null);
 
