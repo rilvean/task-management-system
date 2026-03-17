@@ -81,6 +81,9 @@ public class UserService(IUnitOfWork unitOfWork)
 		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
 		var user = await _helper.EnsureUserExistAsync(userId);
 
+		foreach (var t in user.Tasks.ToList())
+			t.RemoveExecutor(user);
+
 		user.ChangeRole(role);
 
 		await unitOfWork.SaveChangesAsync();
