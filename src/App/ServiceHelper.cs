@@ -1,6 +1,8 @@
 ﻿using Domain.Enums;
-using Domain.Interfaces;
+using App.Interfaces;
 using Domain.Models;
+using App.Excepions;
+using Domain.Exceptions;
 
 namespace App;
 

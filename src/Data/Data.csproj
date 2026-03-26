@@ -22,11 +22,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\App\App.csproj" />
   </ItemGroup>
 
 </Project>

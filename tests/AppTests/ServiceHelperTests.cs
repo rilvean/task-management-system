@@ -1,6 +1,6 @@
 ﻿using App;
+using App.Interfaces;
 using Domain.Enums;
-using Domain.Interfaces;
 using Moq;
 
 namespace AppTests;

@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums;
+﻿namespace App.Enums;
 
 public enum UserSortBy
 {

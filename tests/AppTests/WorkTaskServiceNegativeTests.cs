@@ -1,6 +1,6 @@
-﻿using App;
+﻿using App.Excepions;
+using App.Interfaces;
 using App.Services;
-using Domain.Interfaces;
 using Moq;
 
 namespace AppTests;

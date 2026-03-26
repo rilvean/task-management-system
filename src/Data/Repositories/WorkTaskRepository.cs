@@ -1,5 +1,6 @@
-﻿using Domain.Enums;
-using Domain.Interfaces;
+﻿using App.Enums;
+using App.Interfaces;
+using Domain.Enums;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 

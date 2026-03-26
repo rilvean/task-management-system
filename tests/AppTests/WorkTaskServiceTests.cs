@@ -1,8 +1,9 @@
 ﻿using App.Services;
 using Domain.Enums;
-using Domain.Interfaces;
+using App.Interfaces;
 using Domain.Models;
 using Moq;
+using App.Enums;
 
 namespace AppTests;
 

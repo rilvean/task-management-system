@@ -1,7 +1,7 @@
-﻿using App;
+﻿using App.Excepions;
 using App.Services;
 using Domain.Enums;
-using Domain.Interfaces;
+using App.Interfaces;
 using Domain.Services;
 using Domain.ValueObjects;
 using Moq;

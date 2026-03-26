@@ -1,8 +1,10 @@
 ﻿using App;
 using Domain.Enums;
-using Domain.Interfaces;
+using App.Interfaces;
 using Domain.Models;
 using Moq;
+using App.Excepions;
+using Domain.Exceptions;
 
 namespace AppTests;
 

@@ -1,7 +1,8 @@
-﻿using Domain.Enums;
+﻿using App.Enums;
+using Domain.Enums;
 using Domain.Models;
 
-namespace Domain.Interfaces;
+namespace App.Interfaces;
 
 public interface IWorkTaskRepository
 {

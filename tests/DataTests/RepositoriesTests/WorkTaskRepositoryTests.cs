@@ -1,4 +1,5 @@
-﻿using Data.Repositories;
+﻿using App.Enums;
+using Data.Repositories;
 using Domain.Enums;
 using Domain.Models;
 

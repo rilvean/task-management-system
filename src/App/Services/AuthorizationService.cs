@@ -1,5 +1,6 @@
-﻿using Domain.Enums;
-using Domain.Interfaces;
+﻿using App.Excepions;
+using App.Interfaces;
+using Domain.Enums;
 using Domain.Services;
 using Domain.ValueObjects;
 

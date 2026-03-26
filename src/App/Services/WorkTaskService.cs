@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
-using Domain.Interfaces;
+using App.Interfaces;
 using Domain.Models;
+using App.Enums;
 
 namespace App.Services;
 

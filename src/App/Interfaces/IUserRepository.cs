@@ -1,8 +1,8 @@
-﻿using Domain.Enums;
+﻿using App.Enums;
 using Domain.Models;
 using Domain.ValueObjects;
 
-namespace Domain.Interfaces;
+namespace App.Interfaces;
 
 public interface IUserRepository
 {
