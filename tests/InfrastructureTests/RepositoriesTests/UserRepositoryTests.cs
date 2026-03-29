@@ -1,11 +1,11 @@
 ﻿using App.Enums;
-using Data.Repositories;
+using Infrastructure.Repositories;
 using Domain.Enums;
 using Domain.Models;
 using Domain.Services;
 using Domain.ValueObjects;
 
-namespace DataTests.RepositoriesTests;
+namespace InfrastructureTests.RepositoriesTests;
 
 public class UserRepositoryTests
 {

@@ -1,6 +1,6 @@
-﻿using Data;
+﻿using Infrastructure;
 
-namespace DataTests;
+namespace InfrastructureTests;
 
 public class UnitOfWorkNegativeTests
 {

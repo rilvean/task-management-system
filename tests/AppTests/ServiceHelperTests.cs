@@ -8,25 +8,6 @@ namespace AppTests;
 public class ServiceHelperTests
 {
 	[Fact]
-	public async Task EnsureAccessAsync_ReturnsUser()
-	{
-		var user = TestData.Admin();
-
-		var repo = new Mock<IUserRepository>();
-		repo.Setup(x => x.GetByIdAsync(user.Id))
-			.ReturnsAsync(user);
-
-		var uow = new Mock<IUnitOfWork>();
-		uow.SetupGet(x => x.UserRepository).Returns(repo.Object);
-
-		var helper = new ServiceHelper(uow.Object);
-
-		var result = await helper.EnsureAccessAsync(user.Id, UserRole.Admin);
-
-		Assert.Equal(user, result);
-	}
-
-	[Fact]
 	public async Task EnsureUserExistAsync_ReturnsUser()
 	{
 		var user = TestData.Admin();

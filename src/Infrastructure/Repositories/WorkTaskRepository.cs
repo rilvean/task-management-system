@@ -4,7 +4,7 @@ using Domain.Enums;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories;
+namespace Infrastructure.Repositories;
 
 public class WorkTaskRepository(AppDbContext dbContext) : IWorkTaskRepository
 {

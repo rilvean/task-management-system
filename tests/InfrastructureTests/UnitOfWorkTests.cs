@@ -1,7 +1,7 @@
-﻿using Data;
+﻿using Infrastructure;
 using Domain.Models;
 
-namespace DataTests;
+namespace InfrastructureTests;
 
 public class UnitOfWorkTests
 {

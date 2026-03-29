@@ -10,25 +10,20 @@ public class UserService(IUnitOfWork unitOfWork)
 {
 	private readonly ServiceHelper _helper = new ServiceHelper(unitOfWork);
 
-	public async Task<IReadOnlyList<User>> GetPerTaskAsync(Guid managerId, Guid taskId)
+	public async Task<IReadOnlyList<User>> GetPerTaskAsync(Guid taskId)
 	{
-		await _helper.EnsureAccessAsync(managerId, UserRole.Manager);
 		var task = await _helper.EnsureTaskExistAsync(taskId);
 
 		return task.Executors.ToList();
 	}
 
-	public async Task<IReadOnlyList<User>> GetAllSortedAsync(Guid adminId, UserSortBy sortBy = default, bool descending = default)
+	public async Task<IReadOnlyList<User>> GetAllSortedAsync(UserSortBy sortBy = default, bool descending = default)
 	{
-		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
-
 		return await unitOfWork.UserRepository.GetAllSortedAsync(sortBy, descending);
 	}
 
-	public async Task<Guid> CreateAsync(Guid adminId, string name, Email email, PasswordHash password, UserRole role)
+	public async Task<Guid> CreateAsync(string name, Email email, PasswordHash password, UserRole role)
 	{
-		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
-
 		var user = new User(name, email, password, role);
 
 		await unitOfWork.UserRepository.AddAsync(user);
@@ -37,9 +32,8 @@ public class UserService(IUnitOfWork unitOfWork)
 		return user.Id;
 	}
 
-	public async Task DeleteAsync(Guid adminId, Guid userId)
+	public async Task DeleteAsync(Guid userId)
 	{
-		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
 		var user = await _helper.EnsureUserExistAsync(userId);
 
 		unitOfWork.UserRepository.Delete(user);
@@ -47,9 +41,8 @@ public class UserService(IUnitOfWork unitOfWork)
 		await unitOfWork.SaveChangesAsync();
 	}
 
-	public async Task RenameAsync(Guid adminId, Guid userId, string newName)
+	public async Task RenameAsync(Guid userId, string newName)
 	{
-		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
 		var user = await _helper.EnsureUserExistAsync(userId);
 
 		user.ChangeName(newName);
@@ -57,9 +50,8 @@ public class UserService(IUnitOfWork unitOfWork)
 		await unitOfWork.SaveChangesAsync();
 	}
 
-	public async Task ChangeEmailAsync(Guid adminId, Guid userId, Email newEmail)
+	public async Task ChangeEmailAsync(Guid userId, Email newEmail)
 	{
-		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
 		var user = await _helper.EnsureUserExistAsync(userId);
 
 		user.ChangeEmail(newEmail);
@@ -67,9 +59,8 @@ public class UserService(IUnitOfWork unitOfWork)
 		await unitOfWork.SaveChangesAsync();
 	}
 
-	public async Task ChangePasswordAsync(Guid adminId, Guid userId, PasswordHash newPassword)
+	public async Task ChangePasswordAsync(Guid userId, PasswordHash newPassword)
 	{
-		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
 		var user = await _helper.EnsureUserExistAsync(userId);
 
 		user.ChangePassword(newPassword);
@@ -77,9 +68,8 @@ public class UserService(IUnitOfWork unitOfWork)
 		await unitOfWork.SaveChangesAsync();
 	}
 
-	public async Task ChangeRoleAsync(Guid adminId, Guid userId, UserRole role)
+	public async Task ChangeRoleAsync(Guid userId, UserRole role)
 	{
-		await _helper.EnsureAccessAsync(adminId, UserRole.Admin);
 		var user = await _helper.EnsureUserExistAsync(userId);
 
 		foreach (var t in user.Tasks.ToList())

@@ -1,6 +1,6 @@
-﻿using Data.Repositories;
+﻿using Infrastructure.Repositories;
 
-namespace DataTests.RepositoriesTests;
+namespace InfrastructureTests.RepositoriesTests;
 
 public class TaskRepositoryNegativeTests
 {

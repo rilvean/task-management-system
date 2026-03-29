@@ -1,7 +1,7 @@
-using Data;
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataTests;
+namespace InfrastructureTests;
 
 public static class DbContextFactory
 {

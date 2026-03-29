@@ -4,7 +4,7 @@ using Domain.Models;
 using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories;
+namespace Infrastructure.Repositories;
 
 public class UserRepository(AppDbContext dbContext) : IUserRepository
 {

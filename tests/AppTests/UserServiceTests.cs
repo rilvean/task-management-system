@@ -25,7 +25,6 @@ public class UserServiceTests
 		var service = new UserService(uow.Object);
 
 		var id = await service.CreateAsync(
-			admin.Id,
 			"user",
 			Email.From("test@mail.com"),
 			PasswordHasher.Hash("123"),
@@ -51,7 +50,7 @@ public class UserServiceTests
 
 		var service = new UserService(uow.Object);
 
-		var users = await service.GetAllSortedAsync(admin.Id, UserSortBy.Name, descending: true);
+		var users = await service.GetAllSortedAsync(UserSortBy.Name, descending: true);
 
 		Assert.Equal(expected, users);
 	}
@@ -76,7 +75,7 @@ public class UserServiceTests
 
 		var service = new UserService(uow.Object);
 
-		var executors = await service.GetPerTaskAsync(manager.Id, task.Id);
+		var executors = await service.GetPerTaskAsync(task.Id);
 
 		Assert.Single(executors);
 		Assert.Equal(employee.Id, executors[0].Id);
@@ -97,7 +96,7 @@ public class UserServiceTests
 
 		var service = new UserService(uow.Object);
 
-		await service.DeleteAsync(admin.Id, user.Id);
+		await service.DeleteAsync(user.Id);
 
 		repo.Verify(x => x.Delete(user), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -118,7 +117,7 @@ public class UserServiceTests
 
 		var service = new UserService(uow.Object);
 
-		await service.RenameAsync(admin.Id, user.Id, "new");
+		await service.RenameAsync(user.Id, "new");
 
 		Assert.Equal("new", user.Name);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -140,7 +139,7 @@ public class UserServiceTests
 
 		var service = new UserService(uow.Object);
 
-		await service.ChangeEmailAsync(admin.Id, user.Id, newEmail);
+		await service.ChangeEmailAsync(user.Id, newEmail);
 
 		Assert.Equal(newEmail, user.Email);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -162,7 +161,7 @@ public class UserServiceTests
 
 		var service = new UserService(uow.Object);
 
-		await service.ChangePasswordAsync(admin.Id, user.Id, newPassword);
+		await service.ChangePasswordAsync(user.Id, newPassword);
 
 		Assert.Equal(newPassword, user.PasswordHash);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -183,7 +182,7 @@ public class UserServiceTests
 
 		var service = new UserService(uow.Object);
 
-		await service.ChangeRoleAsync(admin.Id, user.Id, UserRole.Manager);
+		await service.ChangeRoleAsync(user.Id, UserRole.Manager);
 
 		Assert.Equal(UserRole.Manager, user.Role);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);

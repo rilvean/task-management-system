@@ -25,7 +25,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		var id = await service.CreateAsync(manager.Id, "task", null);
+		var id = await service.CreateAsync("task", null);
 
 		Assert.NotEqual(Guid.Empty, id);
 		taskRepo.Verify(x => x.AddAsync(It.Is<WorkTask>(t => t.Id == id)), Times.Once);
@@ -71,7 +71,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		var tasks = await service.GetAllSortedAsync(manager.Id, WorkTaskSortBy.Name, true);
+		var tasks = await service.GetAllSortedAsync(WorkTaskSortBy.Name, true);
 
 		Assert.Equal(expected, tasks);
 	}
@@ -94,7 +94,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		var tasks = await service.GetByPriorityAsync(manager.Id, WorkTaskPriority.High);
+		var tasks = await service.GetByPriorityAsync(WorkTaskPriority.High);
 
 		Assert.Equal(expected, tasks);
 	}
@@ -117,7 +117,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		var tasks = await service.GetByStatusAsync(manager.Id, WorkTaskStatus.Active);
+		var tasks = await service.GetByStatusAsync(WorkTaskStatus.Active);
 
 		Assert.Equal(expected, tasks);
 	}
@@ -142,7 +142,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.AssignExecutorAsync(manager.Id, task.Id, employee.Id);
+		await service.AssignExecutorAsync(task.Id, employee.Id);
 
 		Assert.Contains(task.Executors, u => u.Id == employee.Id);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -169,7 +169,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.RemoveExecutorAsync(manager.Id, task.Id, employee.Id);
+		await service.RemoveExecutorAsync(task.Id, employee.Id);
 
 		Assert.DoesNotContain(task.Executors, u => u.Id == employee.Id);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -193,7 +193,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.ChangePriorityAsync(manager.Id, task.Id, WorkTaskPriority.High);
+		await service.ChangePriorityAsync(task.Id, WorkTaskPriority.High);
 
 		Assert.Equal(WorkTaskPriority.High, task.Priority);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -217,7 +217,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.ChangeStatusAsync(manager.Id, task.Id, WorkTaskStatus.Active);
+		await service.ChangeStatusAsync(task.Id, WorkTaskStatus.Active);
 
 		Assert.Equal(WorkTaskStatus.Active, task.Status);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -241,7 +241,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.RenameAsync(manager.Id, task.Id, "new name");
+		await service.RenameAsync(task.Id, "new name");
 
 		Assert.Equal("new name", task.Name);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -265,7 +265,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.ChangeDescriptionAsync(manager.Id, task.Id, "description");
+		await service.ChangeDescriptionAsync(task.Id, "description");
 
 		Assert.Equal("description", task.Description);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -290,7 +290,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.SetDeadlineAsync(manager.Id, task.Id, deadline);
+		await service.SetDeadlineAsync(task.Id, deadline);
 
 		Assert.Equal(deadline, task.Deadline);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);
@@ -339,7 +339,7 @@ public class WorkTaskServiceTests
 
 		var service = new WorkTaskService(uow.Object);
 
-		await service.DeleteAsync(manager.Id, task.Id);
+		await service.DeleteAsync(task.Id);
 
 		taskRepo.Verify(x => x.Delete(task), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(default), Times.Once);

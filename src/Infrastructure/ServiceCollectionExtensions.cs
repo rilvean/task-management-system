@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Data;
+namespace Infrastructure;
 
-public static class DependencyInjection
+public static class ServiceCollectionExtensions
 {
 	public static IServiceCollection AddData(this IServiceCollection services, IConfiguration configuration)
 	{

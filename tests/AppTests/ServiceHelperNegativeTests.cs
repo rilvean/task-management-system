@@ -5,6 +5,7 @@ using Domain.Models;
 using Moq;
 using App.Excepions;
 using Domain.Exceptions;
+using App.Services;
 
 namespace AppTests;
 
@@ -24,8 +25,8 @@ public class ServiceHelperNegativeTests
 
 		var helper = new ServiceHelper(uow.Object);
 
-		await Assert.ThrowsAsync<AccessException>(() =>
-			helper.EnsureAccessAsync(user.Id, UserRole.Admin));
+		Assert.Throws<AccessException>(() =>
+			AuthorizationService.RequireRole(user, UserRole.Admin));
 	}
 
 	[Fact]

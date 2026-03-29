@@ -2,9 +2,9 @@
 using Domain.Models.Submodels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data;
+namespace Infrastructure;
 
-static class Extensions
+static class QueryableExtensions
 {
 	public static IQueryable<WorkTask> IncludeAssignments(this IQueryable<WorkTask> query)
 		=> query

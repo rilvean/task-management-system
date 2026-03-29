@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace DataTests;
+namespace InfrastructureTests;
 
 public class AppDbContextTests
 {

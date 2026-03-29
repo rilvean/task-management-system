@@ -1,9 +1,9 @@
 ﻿using App.Enums;
-using Data.Repositories;
+using Infrastructure.Repositories;
 using Domain.Enums;
 using Domain.Models;
 
-namespace DataTests.RepositoriesTests;
+namespace InfrastructureTests.RepositoriesTests;
 
 public class WorkTaskRepositoryTests
 {

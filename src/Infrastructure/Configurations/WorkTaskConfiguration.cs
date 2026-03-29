@@ -3,7 +3,7 @@ using Domain.Models.Submodels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Configurations;
+namespace Infrastructure.Configurations;
 
 class WorkTaskConfiguration : IEntityTypeConfiguration<WorkTask>
 {

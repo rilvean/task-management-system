@@ -26,4 +26,15 @@ public class AuthorizationServiceTests
 		Assert.Equal(user.Role, result.role);
 		Assert.Equal(user.Name, result.name);
 	}
+
+	[Fact]
+	public void RequireRole_NotThrowns_WhenRoleContains()
+	{
+		var user = TestData.Manager();
+
+		var exception = Record.Exception(() =>
+			AuthorizationService.RequireRole(user, Domain.Enums.UserRole.Manager));
+
+		Assert.Null(exception);
+	}
 }

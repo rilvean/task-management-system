@@ -1,7 +1,7 @@
-﻿using Data.Repositories;
+﻿using Infrastructure.Repositories;
 using App.Interfaces;
 
-namespace Data;
+namespace Infrastructure;
 
 public class UnitOfWork(AppDbContext dbContext) : IUnitOfWork
 {

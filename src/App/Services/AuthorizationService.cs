@@ -1,6 +1,7 @@
 ﻿using App.Excepions;
 using App.Interfaces;
 using Domain.Enums;
+using Domain.Models;
 using Domain.Services;
 using Domain.ValueObjects;
 
@@ -17,5 +18,11 @@ public class AuthorizationService(IUnitOfWork unitOfWork)
 			throw new AuthorizationException($"Invalid {nameof(password)}.");
 
 		return (user.Id, user.Role, user.Name);
+	}
+
+	public static void RequireRole(User user, params UserRole[] roles)
+	{
+		if (!roles.Contains(user.Role))
+			throw new AccessException("Access denied.");
 	}
 }

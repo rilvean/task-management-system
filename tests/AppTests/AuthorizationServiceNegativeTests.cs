@@ -41,4 +41,13 @@ public class AuthorizationServiceNegativeTests
 		await Assert.ThrowsAsync<AuthorizationException>(() =>
 			service.LoginAsync(user.Email, "wrong"));
 	}
+
+	[Fact]
+	public void RequireRole_Throwns_WhenRoleNotContaions()
+	{
+		var user = TestData.Admin();
+
+		Assert.Throws<AccessException>(() =>
+			AuthorizationService.RequireRole(user, Domain.Enums.UserRole.Manager));
+	}
 }

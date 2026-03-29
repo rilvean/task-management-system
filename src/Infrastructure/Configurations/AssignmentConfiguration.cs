@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Configurations;
+namespace Infrastructure.Configurations;
 
 
 class AssignmentConfiguration : IEntityTypeConfiguration<Assignment>

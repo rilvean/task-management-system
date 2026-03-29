@@ -1,10 +1,10 @@
-﻿using Data.Configurations;
+﻿using Infrastructure.Configurations;
 using Domain.Interfaces;
 using Domain.Models;
 using Domain.Models.Submodels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data;
+namespace Infrastructure;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options)
 	: DbContext(options)

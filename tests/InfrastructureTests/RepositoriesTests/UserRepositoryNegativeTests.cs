@@ -1,7 +1,7 @@
-﻿using Data.Repositories;
+﻿using Infrastructure.Repositories;
 using Domain.ValueObjects;
 
-namespace DataTests.RepositoriesTests;
+namespace InfrastructureTests.RepositoriesTests;
 
 public class UserRepositoryNegativeTests
 {
